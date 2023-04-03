@@ -17,6 +17,7 @@ version = "1.0.0"
 resources = ["assets", "images/**/*.png", "secrets/public_key.txt"]
 copyright = "Copyright (c) Jane Doe 2016. All rights reserved."
 category = "Developer Tool"
+description = "myDescription"
 short_description = "An example application."
 long_description = """
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -27,7 +28,3 @@ nisi ut aliquip ex ea commodo consequat.
 deb_depends = ["libgl1-mesa-glx", "libsdl2-2.0-0 (>= 2.0.5)"]
 osx_frameworks = ["SDL2"]
 osx_url_schemes = ["com.doe.exampleapplication"]
-resources = [
-"path/to/resource1",
-"path/to/resource2",
-]
