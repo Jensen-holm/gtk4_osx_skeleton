@@ -1,3 +1,20 @@
+#!/bin/bash
+
+# Replace these values with your own
+APP_NAME="MyApp"
+ICON_PATH="path/to/myapp.icns"
+IDENTIFIER="com.example.myapp"
+RESOURCES=("path/to/resource1" "path/to/resource2")
+
+# Install cargo-bundle if necessary
+if ! command -v cargo-bundle &> /dev/null; then
+    cargo install cargo-bundle
+fi
+
+# Add the bundle section to Cargo.toml
+rm Cargo.toml
+touch Cargo.toml
+cat << EOF >> Cargo.toml
 
 [package]
 name = "gtk4_osx_app_skeleton"
@@ -27,7 +44,21 @@ nisi ut aliquip ex ea commodo consequat.
 deb_depends = ["libgl1-mesa-glx", "libsdl2-2.0-0 (>= 2.0.5)"]
 osx_frameworks = ["SDL2"]
 osx_url_schemes = ["com.doe.exampleapplication"]
-resources = [
-"path/to/resource1",
-"path/to/resource2",
-]
+EOF
+
+if [[ ${#RESOURCES[@]} -ne 0 ]]; then
+    echo "resources = [" >> Cargo.toml
+    for resource in "${RESOURCES[@]}"; do
+        echo "\"$resource\"," >> Cargo.toml
+    done
+    echo "]" >> Cargo.toml
+fi
+
+# Build the Rust executable
+cargo build --release
+
+# Bundle the Rust executable into a macOS app
+cargo bundle --release --target x86_64-apple-darwin
+
+# Open the macOS app bundle in Finder
+open "target/bundle/$APP_NAME.app"

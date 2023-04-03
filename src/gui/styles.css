@@ -1,3 +1,6 @@
+/*This class applies css to the gtk4 window as a whole*/
+window {
+}
 
 .hello_world {
     font-size: 50px;
